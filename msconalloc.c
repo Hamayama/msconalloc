@@ -27,70 +27,91 @@ void alloc_console() {
 
 // コンソールの割り当てと非表示
 void alloc_and_hide_console(int cmdshow) {
-    HWND hConWnd   = NULL; // コンソールのウィンドウハンドル
-    int  hideflag  = 0;    // 非表示フラグ
 
-    // 現在のプロセスの情報を取得
+    // 現在のプロセスの情報を取得する
     PROCESS_BASIC_INFORMATION pbinfo;
-    NtQueryInformationProcess(GetCurrentProcess(), ProcessBasicInformation, &pbinfo, sizeof(pbinfo), NULL);
-    PPEB ppeb = (PPEB)pbinfo.PebBaseAddress;
+    NTSTATUS status = NtQueryInformationProcess(GetCurrentProcess(), ProcessBasicInformation, &pbinfo, sizeof(pbinfo), NULL);
+    // 取得できたとき
+    if (NT_SUCCESS(status) && pbinfo.PebBaseAddress != NULL) {
+        // 現在のプロセスの詳細情報を取得
+        PPEB ppeb = (PPEB)pbinfo.PebBaseAddress;
 // MinGW-w64 のとき (動作未確認)
 #if defined(__MINGW64_VERSION_MAJOR)
-    PRTL_USER_PROCESS_PARAMETERS_1000 pparam = (PRTL_USER_PROCESS_PARAMETERS_1000)ppeb->ProcessParameters;
+        PRTL_USER_PROCESS_PARAMETERS_1000 pparam = (PRTL_USER_PROCESS_PARAMETERS_1000)ppeb->ProcessParameters;
 // MinGW のとき
 #else
-    PRTL_USER_PROCESS_PARAMETERS pparam = (PRTL_USER_PROCESS_PARAMETERS)ppeb->ProcessParameters;
+        PRTL_USER_PROCESS_PARAMETERS pparam = (PRTL_USER_PROCESS_PARAMETERS)ppeb->ProcessParameters;
 #endif
 
-    // ウィンドウの表示/非表示の情報を取得
-    DWORD* pflags = (DWORD*)&(pparam->dwFlags);
-    WORD*  pshow  = (WORD*)&(pparam->wShowWindow);
+        // ウィンドウの表示/非表示の情報を取得
+        DWORD* pflags = (DWORD*)&(pparam->dwFlags);
+        WORD*  pshow  = (WORD*)&(pparam->wShowWindow);
 
-    // ウィンドウの表示/非表示の情報を保存
-    DWORD tmp_flags = *pflags;
-    WORD  tmp_show  = *pshow;
+        // プロセスの起動情報を取得
+        STARTUPINFO si;
+        GetStartupInfo(&si);
 
-    // プロセスの起動情報を取得
-    STARTUPINFO si;
-    GetStartupInfo(&si);
+        // プロセスの起動情報とウィンドウの表示/非表示の情報を照合して、
+        // 一致していれば、ウィンドウを非表示に設定する
+        if (si.dwFlags == *pflags && si.wShowWindow == *pshow) {
+            // ウィンドウの表示/非表示の情報を保存する
+            DWORD tmp_flags = *pflags;
+            WORD  tmp_show  = *pshow;
 
-    // プロセスの起動情報とウィンドウの表示/非表示の情報を照合して、
-    // 一致していれば、ウィンドウを非表示に設定する
-    if (si.dwFlags == tmp_flags && si.wShowWindow == tmp_show) {
-        // Windows7 64bit 対策
-        if (*pflags & STARTF_TITLEISLINKNAME) {
-            *pflags &= ~STARTF_TITLEISLINKNAME;
+            // Windows7 64bit 対策
+            if (*pflags & STARTF_TITLEISLINKNAME) {
+                *pflags &= ~STARTF_TITLEISLINKNAME;
+            }
+
+            // ウィンドウを非表示に設定する
+            *pflags |= STARTF_USESHOWWINDOW;
+            //*pshow  = SW_HIDE;
+            *pshow  = cmdshow;
+
+            // コンソールの割り当て
+            AllocConsole();
+
+            // ウィンドウの表示/非表示の情報を元に戻す
+            *pflags = tmp_flags;
+            *pshow  = tmp_show;
+
+            // 抜ける
+            return;
         }
-        // ウィンドウを非表示に設定する
-        *pflags |= STARTF_USESHOWWINDOW;
-        //*pshow  = SW_HIDE;
-        *pshow  = cmdshow;
-        hideflag = 1;
     }
+
+    // 以下は、上記方法が使えなかった場合の処理となる
+    // (一瞬ちらつきが発生する)
 
     // コンソールの割り当て
-    AllocConsole();
+    int allocflag = AllocConsole();
 
-    // ウィンドウの表示/非表示の情報を復帰
-    *pflags = tmp_flags;
-    *pshow  = tmp_show;
+    // 割り当てできたとき
+    if (allocflag) {
+        int count = 0;        // カウンタ
+        int max_count = 1200; // カウンタ最大値
+                              //   (1200 * 50 = 60000msec であきらめる)
+        HWND hConWnd = NULL;  // コンソールのウィンドウハンドル
 
-    // ウィンドウが生成されるまで待つ
-    while ((hConWnd = GetConsoleWindow()) == NULL) {
-        Sleep(10);
-    }
-
-    // ウィンドウを非表示にできなかったとき
-    if (!hideflag){
-        // ウィンドウが表示されるまで待つ
-        while (!IsWindowVisible(hConWnd)) {
-            Sleep(10);
+        // ウィンドウが生成されるまで待つ
+        while (count++ < max_count) {
+            if ((hConWnd = GetConsoleWindow()) != NULL) { break; }
+            Sleep(50);
         }
-        // ウィンドウが表示されたら非表示にする
-        while (IsWindowVisible(hConWnd)) {
+
+        // ウィンドウが表示されるまで待つ
+        while (count++ < max_count) {
+            if (IsWindowVisible(hConWnd)) { break; }
+            Sleep(50);
+        }
+
+        // ウィンドウが非表示になるまでリトライする
+        while (count++ < max_count) {
+            if (!IsWindowVisible(hConWnd)) { break; }
+            // ウィンドウを非表示にする
             //ShowWindow(hConWnd, SW_HIDE);
             ShowWindow(hConWnd, cmdshow);
-            Sleep(10);
+            Sleep(50);
         }
     }
 }

@@ -1,7 +1,7 @@
 ;; -*- coding: utf-8 -*-
 ;;
 ;; msconalloc.scm
-;; 2014-11-26 v1.00
+;; 2014-11-26 v1.01
 ;;
 ;; ＜内容＞
 ;;   Windows のコンソールなし版の Gauche(gosh-noconsole.exe) で、
