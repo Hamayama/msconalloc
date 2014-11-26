@@ -69,6 +69,18 @@
    実行する必要があります。
 
 
+## 参考情報
+- http://nocd5.blog59.fc2.com/?no=410  
+  (Process Environment Block -> ProcessParameters という順に取得)
+
+- https://github.com/ckw-mod/ckw-mod  
+  (main.cpp の __hide_alloc_console 関数を参考にしました)
+
+- http://stackoverflow.com/questions/6530565/getting-another-process-command-line-in-windows  
+  http://stackoverflow.com/questions/18358150/ntqueryinformationprocess-keep-to-fail  
+  (NtQueryInformationProcess の使用例等)
+
+
 ## 環境等
   - OS
     - Windows XP Home SP3
