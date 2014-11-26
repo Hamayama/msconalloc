@@ -1,0 +1,26 @@
+;;;
+;;; msconalloclib.stub
+;;;
+
+"
+#include \"msconalloc.h\"
+"
+
+;; The following entry is a dummy one.
+;; Replace it for your definitions.
+
+(define-cproc test-msconalloc () ::<const-cstring>
+  (result "msconalloc is working"))
+
+(define-cproc free-console () ::<void>
+  (free_console))
+
+(define-cproc alloc-console () ::<void>
+  (alloc_console))
+
+(define-cproc alloc-and-hide-console (:optional (cmdshow::<int> 0)) ::<void>
+  (alloc_and_hide_console cmdshow))
+
+;; Local variables:
+;; mode: scheme
+;; end:
