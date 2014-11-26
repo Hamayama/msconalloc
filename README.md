@@ -82,6 +82,7 @@
 
 
 ## 環境等
+- 以下の環境で動作を確認しました。
   - OS
     - Windows XP Home SP3
     - Windows 8 (64bit)
