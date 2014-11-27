@@ -3,15 +3,15 @@
 ;; msconalloc.scm
 ;; 2014-11-27 v1.02
 ;;
-;; �����e��
-;;   Windows �̃R���\�[���Ȃ��ł� Gauche(gosh-noconsole.exe) �ŁA
-;;   �R���\�[���̊��蓖�ĂƔ�\�����s�����߂̃��W���[���ł��B
+;; ＜内容＞
+;;   Windows のコンソールなし版の Gauche(gosh-noconsole.exe) で、
+;;   コンソールの割り当てと非表示を行うためのモジュールです。
 ;;
-;;   �Ⴆ�΁A�R���\�[���Ȃ��ł� Gauche �ŁAprint ���ŕW���o�͂ɕ\�����s���ƁA
-;;   Gauche �͎����I�ɃR���\�[�������蓖�Ă�(AllocConsole)�A�R�}���h�v�����v�g�̉�ʂ�\�����܂��B
-;;   �{���W���[�����g���ƁA���̃R�}���h�v�����v�g�̉�ʂ�\�����Ȃ��悤�ɂ��邱�Ƃ��ł��܂��B
+;;   例えば、コンソールなし版の Gauche で、print 等で標準出力に表示を行うと、
+;;   Gauche は自動的にコンソールを割り当てて(AllocConsole)、コマンドプロンプトの画面を表示します。
+;;   本モジュールを使うと、このコマンドプロンプトの画面を表示しないようにすることができます。
 ;;
-;;   �ڍׂɂ��ẮA�ȉ��̃y�[�W���Q�Ƃ��������B
+;;   詳細については、以下のページを参照ください。
 ;;   https://github.com/Hamayama/msconalloc
 ;;
 (define-module msconalloc
@@ -32,7 +32,7 @@
 ;; Put your Scheme definitions here
 ;;
 
-;; ��ʕ\���̒萔
+;; 画面表示の定数
 (define SW_HIDE             0)
 (define SW_SHOWNORMAL       1)
 (define SW_SHOWMINIMIZED    2)

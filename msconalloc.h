@@ -10,7 +10,7 @@
 #include <gauche/extend.h>
 
 
-// MinGW-w64 ‚Ì‚Æ‚« (“®ì–¢Šm”F)
+// MinGW-w64 ã®ã¨ã (å‹•ä½œæœªç¢ºèª)
 #if defined(__MINGW64_VERSION_MAJOR)
 #include <winternl.h>
 typedef struct _RTL_USER_PROCESS_PARAMETERS_1000 {
@@ -43,7 +43,7 @@ typedef struct _RTL_USER_PROCESS_PARAMETERS_1000 {
     UNICODE_STRING  ShellInfo;
     UNICODE_STRING  RuntimeInfo;
 } RTL_USER_PROCESS_PARAMETERS_1000, *PRTL_USER_PROCESS_PARAMETERS_1000;
-// MinGW ‚Ì‚Æ‚«
+// MinGW ã®ã¨ã
 #else
 typedef struct _PEB {
     BYTE  Reserved1[2];
@@ -59,11 +59,11 @@ typedef struct _PEB {
     PVOID Reserved7[1];
     ULONG SessionId;
 } PEB, *PPEB;
-#define PEXECUTION_STATE PEXECUTION_STATE_DUMMY // d•¡’è‹`‘Îô
+#define PEXECUTION_STATE PEXECUTION_STATE_DUMMY // é‡è¤‡å®šç¾©å¯¾ç­–
 #include <ddk/ntapi.h>
 #endif
 
-// Windows7 64bit ‘Îô
+// Windows7 64bit å¯¾ç­–
 #ifndef STARTF_TITLEISLINKNAME
 #define STARTF_TITLEISLINKNAME 0x00000800
 #endif
