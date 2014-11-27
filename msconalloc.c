@@ -31,6 +31,7 @@ void alloc_and_hide_console(int cmdshow) {
     // 現在のプロセスの情報を取得する
     PROCESS_BASIC_INFORMATION pbinfo;
     NTSTATUS status = NtQueryInformationProcess(GetCurrentProcess(), ProcessBasicInformation, &pbinfo, sizeof(pbinfo), NULL);
+
     // 取得できたとき
     if (NT_SUCCESS(status) && pbinfo.PebBaseAddress != NULL) {
         // 現在のプロセスの詳細情報を取得
@@ -98,20 +99,16 @@ void alloc_and_hide_console(int cmdshow) {
             if ((hConWnd = GetConsoleWindow()) != NULL) { break; }
             Sleep(50);
         }
-
-        // ウィンドウが表示されるまで待つ
-        while (count++ < max_count) {
-            if (IsWindowVisible(hConWnd)) { break; }
-            Sleep(50);
-        }
-
-        // ウィンドウが非表示になるまでリトライする
-        while (count++ < max_count) {
-            if (!IsWindowVisible(hConWnd)) { break; }
+        // 生成されたとき
+        if (hConWnd != NULL) {
+            // ウィンドウが表示されるまで待つ
+            while (count++ < max_count) {
+                if (IsWindowVisible(hConWnd)) { break; }
+                Sleep(50);
+            }
             // ウィンドウを非表示にする
             //ShowWindow(hConWnd, SW_HIDE);
             ShowWindow(hConWnd, cmdshow);
-            Sleep(50);
         }
     }
 }
