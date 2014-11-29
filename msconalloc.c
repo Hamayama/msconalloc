@@ -35,14 +35,8 @@ void alloc_and_hide_console(int cmdshow) {
     // 取得できたとき
     if (NT_SUCCESS(status) && pbinfo.PebBaseAddress != NULL) {
         // 現在のプロセスの詳細情報を取得
-        PPEB ppeb = (PPEB)pbinfo.PebBaseAddress;
-// MinGW-w64 のとき (動作未確認)
-#if defined(__MINGW64_VERSION_MAJOR)
+        PPEB_1000 ppeb = (PPEB_1000)pbinfo.PebBaseAddress;
         PRTL_USER_PROCESS_PARAMETERS_1000 pparam = (PRTL_USER_PROCESS_PARAMETERS_1000)ppeb->ProcessParameters;
-// MinGW のとき
-#else
-        PRTL_USER_PROCESS_PARAMETERS pparam = (PRTL_USER_PROCESS_PARAMETERS)ppeb->ProcessParameters;
-#endif
 
         // ウィンドウの表示/非表示の情報を取得
         DWORD* pflags = (DWORD*)&(pparam->dwFlags);
