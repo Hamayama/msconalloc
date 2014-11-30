@@ -10,15 +10,20 @@
 #include <gauche/extend.h>
 
 
+// Windows 内部情報の
+// PEB (Process Environment Block) 構造体と、
+// RTL_USER_PROCESS_PARAMETERS 構造体を、
+// _1000 を付加した別名にして使用する (重複定義対策)
+
 // MinGW-w64 のとき (動作未確認)
 #if defined(__MINGW64_VERSION_MAJOR)
 #include <winternl.h>
 // PEB (Process Environment Block)
 typedef struct _PEB PEB_1000, *PPEB_1000;
 // RTL_USER_PROCESS_PARAMETERS
-// (MinGW の include/ddk/ntapi.h より)
+// (MinGW (32bit) の include/ddk/ntapi.h より)
 typedef struct _RTL_USER_PROCESS_PARAMETERS_1000 {
-    // (MSDN より (8バイト境界ならサイズは一致しそうだけど))
+    // (MSDN を参考に一部修正 (8バイト境界ならサイズは一致しそうだけど))
     BYTE           Reserved1[16];
     PVOID          Reserved2[10];
     UNICODE_STRING ImagePathName;
@@ -52,9 +57,9 @@ typedef struct _RTL_USER_PROCESS_PARAMETERS_1000 {
     UNICODE_STRING ShellInfo;
     UNICODE_STRING RuntimeInfo;
 } RTL_USER_PROCESS_PARAMETERS_1000, *PRTL_USER_PROCESS_PARAMETERS_1000;
-// MinGW のとき
+// MinGW (32bit) のとき
 #else
-#define PEXECUTION_STATE PEXECUTION_STATE_1000 // 重複定義対策
+#define PEXECUTION_STATE PEXECUTION_STATE_1000 // (重複定義対策)
 #include <ddk/ntapi.h>
 // PEB (Process Environment Block)
 // (MSDN より (ポインタはPVOIDに変更))
