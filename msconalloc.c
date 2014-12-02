@@ -16,12 +16,12 @@ ScmObj test_msconalloc(void)
 
 
 // コンソールの解放
-void free_console() {
+void free_console(void) {
     FreeConsole();
 }
 
 // コンソールの割り当て
-void alloc_console() {
+void alloc_console(void) {
     AllocConsole();
 }
 

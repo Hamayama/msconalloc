@@ -95,9 +95,9 @@ SCM_DECL_BEGIN
  */
 
 extern ScmObj test_msconalloc(void);
-extern void free_console();
-extern void alloc_console();
-extern void alloc_and_hide_console();
+extern void free_console(void);
+extern void alloc_console(void);
+extern void alloc_and_hide_console(int cmdshow);
 
 /* Epilogue */
 SCM_DECL_END
