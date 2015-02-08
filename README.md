@@ -88,14 +88,13 @@
 
 
 ## 環境等
-- 以下の環境で動作を確認しました。
-  - OS
-    - Windows XP Home SP3
-    - Windows 8 (64bit)
-  - 環境
-    - MinGW (32bit) v4.8.1
-  - 言語
-    - Gauche v0.9.4
+- OS
+  - Windows XP Home SP3
+  - Windows 8 (64bit)
+- 環境
+  - MinGW (32bit) v4.8.1
+- 言語
+  - Gauche v0.9.4
 
 ## 履歴
 - 2014-11-26 v1.00 (初版)
@@ -106,4 +105,4 @@
 - 2014-12-2  v1.05 Cの関数宣言を修正
 
 
-(2015-1-30)
+(2015-2-8)
