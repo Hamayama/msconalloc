@@ -17,7 +17,7 @@
 
 2. ファイルのダウンロード  
    本サイト( https://github.com/Hamayama/msconalloc )のソースを、  
-   (Download Zipボタン等で)ダウンロードして、作業用のフォルダに展開してください。  
+   (Download Zip ボタン等で)ダウンロードして、作業用のフォルダに展開してください。  
    例えば、作業用のフォルダを c:\work とすると、  
    c:\work\msconalloc の下にファイル一式が配置されるように展開してください。
 
@@ -31,6 +31,10 @@
      make install   # Gaucheのライブラリフォルダにインストールします
      make check     # テストを実行します
    ```
+   (注意) コンパイルエラーになる場合は、以下のページの  
+   「5. MinGW (32bit) のファイルの修正」の内容を確認してみてください。  
+   https://gist.github.com/Hamayama/19d7e779cec0480af0cf  
+   
    (注意) 環境によっては make install を実行すると、  
    「*** ERROR: mkstemp failed」というエラーが発生します。  
    このエラーは c:\Program Files (x86) のフォルダに 書き込み権限がないとき等に発生します。  
@@ -90,7 +94,7 @@
 ## 環境等
 - OS
   - Windows XP Home SP3
-  - Windows 8 (64bit)
+  - Windows 8.1 (64bit)
 - 環境
   - MinGW (32bit) v4.8.1
 - 言語
@@ -105,4 +109,4 @@
 - 2014-12-2  v1.05 Cの関数宣言を修正
 
 
-(2015-2-8)
+(2015-5-7)
