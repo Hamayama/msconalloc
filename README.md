@@ -32,10 +32,6 @@
      make install   # Gaucheのライブラリフォルダにインストールします
      make check     # テストを実行します
    ```
-   (注意) コンパイルエラーになる場合は、以下のページの  
-   「5. MinGW (32bit) のファイルの修正」の内容を確認してみてください。  
-   https://gist.github.com/Hamayama/19d7e779cec0480af0cf  
-   
    (注意) 環境によっては make install を実行すると、  
    「*** ERROR: mkstemp failed」というエラーが発生します。  
    このエラーは c:\Program Files (x86) のフォルダに 書き込み権限がないとき等に発生します。  
@@ -110,4 +106,4 @@
 - 2014-12-2  v1.05 Cの関数宣言を修正
 
 
-(2015-6-4)
+(2015-10-12)
