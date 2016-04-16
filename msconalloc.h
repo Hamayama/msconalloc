@@ -15,7 +15,7 @@
 // RTL_USER_PROCESS_PARAMETERS 構造体を、
 // _1000 を付加した別名にして使用する (重複定義対策)
 
-// MinGW-w64 のとき (動作未確認)
+// MinGW-w64 のとき
 #if defined(__MINGW64_VERSION_MAJOR)
 #include <winternl.h>
 // PEB (Process Environment Block)
@@ -23,11 +23,8 @@ typedef struct _PEB PEB_1000, *PPEB_1000;
 // RTL_USER_PROCESS_PARAMETERS
 // (MinGW (32bit) の include/ddk/ntapi.h より)
 typedef struct _RTL_USER_PROCESS_PARAMETERS_1000 {
+
     // (MSDN を参考に一部修正 (8バイト境界ならサイズは一致しそうだけど))
-    BYTE           Reserved1[16];
-    PVOID          Reserved2[10];
-    UNICODE_STRING ImagePathName;
-    UNICODE_STRING CommandLine;
     //ULONG          AllocationSize;
     //ULONG          Size;
     //ULONG          Flags;
@@ -42,6 +39,11 @@ typedef struct _RTL_USER_PROCESS_PARAMETERS_1000 {
     //UNICODE_STRING DllPath;
     //UNICODE_STRING ImagePathName;
     //UNICODE_STRING CommandLine;
+    BYTE           Reserved1[16];
+    PVOID          Reserved2[10];
+    UNICODE_STRING ImagePathName;
+    UNICODE_STRING CommandLine;
+
     PWSTR          Environment;
     ULONG          dwX;
     ULONG          dwY;
