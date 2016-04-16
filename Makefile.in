@@ -16,6 +16,8 @@ GAUCHE_CONFIG  = "@GAUCHE_CONFIG@"
 GAUCHE_PACKAGE = "@GAUCHE_PACKAGE@"
 INSTALL        = "@GAUCHE_INSTALL@" -C
 
+CFLAGS = @DEFAULT_CFLAGS@ @DEF_UNICODE@
+
 # Other parameters
 SOEXT  = @SOEXT@
 OBJEXT = @OBJEXT@
@@ -44,8 +46,10 @@ all : $(TARGET)
 
 msconalloc.$(SOEXT): $(msconalloc_SRCS)
 	$(GAUCHE_PACKAGE) compile \
-	  --libs="-lntdll" \
-	  --local=$(LOCAL_PATHS) --verbose msconalloc $(msconalloc_SRCS)
+	  --local=$(LOCAL_PATHS)  \
+	  --cflags="$(CFLAGS)"    \
+	  --libs="-lntdll"        \
+	  --verbose msconalloc $(msconalloc_SRCS)
 
 check : all
 	@rm -f test.log
