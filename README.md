@@ -12,46 +12,43 @@
 ## インストール方法
 1. 事前準備  
    事前に、Gauche および開発環境がインストールされている必要があります。  
-   また、開発環境に MSYS2/MinGW-w64 (64bit/32bit) を使用する場合には、  
-   Gauche の開発最新版のソースの取得、および、コンパイルも必要になります。  
-   開発環境のインストールと、Gauche のコンパイルについては、以下のページを参照ください。  
-   ＜開発環境に MinGW (32bit) を使う場合＞  
-   https://gist.github.com/Hamayama/19d7e779cec0480af0cf  
-   ＜開発環境に MSYS2/MinGW-w64 (64bit/32bit) を使う場合＞  
-   https://gist.github.com/Hamayama/6666e5d2c8d5167d22f7
+   Gauche については、以下のページに Windows用バイナリインストーラ があるので、インストールを実施ください。  
+   http://practical-scheme.net/gauche/download-j.html  
+   (すでにインストール済みであれば本手順は不要です)  
+   
+   また、開発環境については、MSYS2/MinGW-w64 (64bit/32bit) の開発環境が必要です。  
+   以下のページを参考に インストールを実施ください。  
+   https://gist.github.com/Hamayama/eb4b4824ada3ac71beee0c9bb5fa546d  
+   (すでにインストール済みであれば本手順は不要です)  
+   
+   (注意) 32bitと64bitの成果物の混在には注意してください。  
+   (例えば、32bit版の Gauche から、64bitのライブラリを呼び出すと、エラーになります)
 
 2. ファイルのダウンロード  
    本サイト( https://github.com/Hamayama/msconalloc )のソースを、  
    (Download Zip ボタン等で)ダウンロードして、作業用のフォルダに展開してください。  
    例えば、作業用のフォルダを c:\work とすると、  
-   c:\work\msicon の下にファイル一式が配置されるように展開してください。  
+   c:\work\msconalloc の下にファイル一式が配置されるように展開してください。  
    (注意) 作業用フォルダのパスには、空白を入れないようにしてください。
 
 3. コンパイルとインストール  
-   ＜MinGW (32bit) 環境の場合＞  
-   コマンドプロンプトを開いて、以下のコマンドを実行してください。  
    ＜MSYS2/MinGW-w64 (64bit) 環境の場合＞  
-   c:\msys64\mingw64_shell.bat を起動して、以下のコマンドの bash 以外を実行してください。  
+   プログラムメニューから MSYS2 の MinGW-w64 Win64 Shell を起動して、以下のコマンドを実行してください。  
    ＜MSYS2/MinGW-w64 (32bit) 環境の場合＞  
-   c:\msys64\mingw32_shell.bat を起動して、以下のコマンドの bash 以外を実行してください。
+   プログラムメニューから MSYS2 の MinGW-w64 Win32 Shell を起動して、以下のコマンドを実行してください。  
+   ( c:\work にソースを展開した場合)  
    ```
-     bash
      cd /c/work/msconalloc
-     ./configure    # Makefile等を生成します
-     make           # コンパイルを実行します
-     make install   # Gaucheのライブラリフォルダにインストールします
-     make check     # テストを実行します
+     ./configure   # Makefile等を生成します
+     make          # コンパイルを実行します
+     make install  # Gaucheのライブラリフォルダにインストールします
+     make check    # テストを実行します
    ```
-   (注意) コンパイルには、Gauche をコンパイルした開発環境と同じ開発環境を  
-   使用してください。例えば、Gauche を MinGW (32bit) 環境でコンパイルして、  
-   本モジュールを MSYS2/MinGW-w64 (64bit) 環境でコンパイルすると、  
-   エラーが発生して正常に動作しません。  
-   
    (注意) 環境によっては make install を実行すると、  
    「*** ERROR: mkstemp failed」というエラーが発生します。  
    このエラーは c:\Program Files (x86) のフォルダに 書き込み権限がないとき等に発生します。  
-   その場合は、コマンドプロンプトやバッチファイルを実行するときに、  
-   右クリックして、「管理者として実行」を選択してください。  
+   その場合には、プログラムメニューからの開発環境の起動時に右クリックして、  
+   「管理者として実行」を選択してください。  
    そして再度上記のコマンドを実行してください。
 
 - 以上です。
@@ -65,7 +62,7 @@
 ```
 
 - alloc-and-hide-console は、オプション引数でコマンドプロンプトの画面の表示状態を設定できます。  
-  以下の値のいずれかを指定可能です。省略時はSW_HIDEを指定したことになります。
+  以下の値のいずれかを指定可能です。省略時は SW_HIDE を指定したことになります。
 ```
     SW_HIDE             非表示
     SW_SHOWNORMAL       表示+最大最小解除+アクティブ
@@ -105,15 +102,15 @@
 
 ## 環境等
 - OS
-  - Windows XP Home SP3
   - Windows 8.1 (64bit)
+  - Windows XP Home SP3
 - 環境
+  - MSYS2/MinGW-w64 (64bit) (gcc version 6.2.0 (Rev2, Built by MSYS2 project))
+  - MSYS2/MinGW-w64 (32bit) (gcc version 6.2.0 (Rev2, Built by MSYS2 project))
   - MinGW (32bit) (gcc v4.8.1)
-  - MSYS2/MinGW-w64 (64bit) (gcc version 5.3.0 (Rev1, Built by MSYS2 project))
-  - MSYS2/MinGW-w64 (32bit) (gcc version 5.3.0 (Rev1, Built by MSYS2 project))
 - 言語
+  - Gauche v0.9.5
   - Gauche v0.9.4
-  - Gauche v0.9.5_pre1
 
 ## 履歴
 - 2014-11-26 v1.00 (初版)
@@ -123,6 +120,7 @@
 - 2014-11-30 v1.04 コメント修正のみ
 - 2014-12-2  v1.05 Cの関数宣言を修正
 - 2016-4-16  v1.06 コメント修正のみ
+- 2016-10-14 v1.06B README修正のみ(Gauche v0.9.5 対応)
 
 
-(2016-4-18)
+(2016-10-14)
