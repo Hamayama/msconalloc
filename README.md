@@ -25,17 +25,17 @@
    (例えば、32bit版の Gauche から、64bitのライブラリを呼び出すと、エラーになります)
 
 2. ファイルのダウンロード  
-   本サイト( https://github.com/Hamayama/msconalloc )のソースを、  
-   (Download Zip ボタン等で)ダウンロードして、作業用のフォルダに展開してください。  
+   本サイト ( https://github.com/Hamayama/msconalloc ) のソースを、  
+   (Download Zip ボタン等で) ダウンロードして、作業用のフォルダに展開してください。  
    例えば、作業用のフォルダを c:\work とすると、  
    c:\work\msconalloc の下にファイル一式が配置されるように展開してください。  
    (注意) 作業用フォルダのパスには、空白を入れないようにしてください。
 
 3. コンパイルとインストール  
    ＜MSYS2/MinGW-w64 (64bit) 環境の場合＞  
-   プログラムメニューから MSYS2 の MinGW-w64 Win64 Shell を起動して、以下のコマンドを実行してください。  
+   プログラムメニューから MSYS2 の MinGW 64bit Shell を起動して、以下のコマンドを実行してください。  
    ＜MSYS2/MinGW-w64 (32bit) 環境の場合＞  
-   プログラムメニューから MSYS2 の MinGW-w64 Win32 Shell を起動して、以下のコマンドを実行してください。  
+   プログラムメニューから MSYS2 の MinGW 32bit Shell を起動して、以下のコマンドを実行してください。  
    ( c:\work にソースを展開した場合)  
    ```
      cd /c/work/msconalloc
@@ -105,10 +105,11 @@
   - Windows 8.1 (64bit)
   - Windows XP Home SP3
 - 環境
-  - MSYS2/MinGW-w64 (64bit) (gcc version 6.2.0 (Rev2, Built by MSYS2 project))
-  - MSYS2/MinGW-w64 (32bit) (gcc version 6.2.0 (Rev2, Built by MSYS2 project))
-  - MinGW (32bit) (gcc v4.8.1)
+  - MSYS2/MinGW-w64 (64bit) (gcc version 7.3.0 (Rev2, Built by MSYS2 project))
+  - MSYS2/MinGW-w64 (32bit) (gcc version 7.3.0 (Rev2, Built by MSYS2 project))
+  - MinGW (32bit) (gcc v6.3.0 (MinGW.org GCC-6.3.0-1))
 - 言語
+  - Gauche v0.9.6
   - Gauche v0.9.5
   - Gauche v0.9.4
 
@@ -120,7 +121,8 @@
 - 2014-11-30 v1.04 コメント修正のみ
 - 2014-12-2  v1.05 Cの関数宣言を修正
 - 2016-4-16  v1.06 コメント修正のみ
-- 2016-10-14 v1.06B README修正のみ(Gauche v0.9.5 対応)
+- 2016-10-14 v1.06 README修正のみ(Gauche v0.9.5 で動作確認)
+- 2018-7-7   v1.06 README修正のみ(Gauche v0.9.6 で動作確認)
 
 
-(2016-10-14)
+(2018-7-7)
