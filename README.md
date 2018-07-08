@@ -105,9 +105,8 @@
   - Windows 8.1 (64bit)
   - Windows XP Home SP3
 - 環境
-  - MSYS2/MinGW-w64 (64bit) (gcc version 7.3.0 (Rev2, Built by MSYS2 project))
-  - MSYS2/MinGW-w64 (32bit) (gcc version 7.3.0 (Rev2, Built by MSYS2 project))
-  - MinGW (32bit) (gcc v6.3.0 (MinGW.org GCC-6.3.0-1))
+  - MSYS2/MinGW-w64 (64bit/32bit) (gcc version 7.3.0 (Rev2, Built by MSYS2 project))
+  - MinGW (32bit) (gcc version 6.3.0 (MinGW.org GCC-6.3.0-1))
 - 言語
   - Gauche v0.9.6
   - Gauche v0.9.5
@@ -122,7 +121,7 @@
 - 2014-12-2  v1.05 Cの関数宣言を修正
 - 2016-4-16  v1.06 コメント修正のみ
 - 2016-10-14 v1.06 README修正のみ(Gauche v0.9.5 で動作確認)
-- 2018-7-7   v1.06 README修正のみ(Gauche v0.9.6 で動作確認)
+- 2018-7-9   v1.06 README修正のみ(Gauche v0.9.6 で動作確認)
 
 
-(2018-7-7)
+(2018-7-9)
